@@ -144,6 +144,12 @@ function loadmap() {
     }
 }
 
+//1
+//2
+//3
+//4
+//5
+
 // when a file is selected, this will be called
 function startRead() {
     // first, retrieve the selected file (as a File object)
