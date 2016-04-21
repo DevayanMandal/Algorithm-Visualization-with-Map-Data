@@ -1,0 +1,22 @@
+UI
+ 1. Make map size smaller (Dev) done
+   -decrease right hand side width of map to match on campus computer screen size
+	 
+ 2. Pseudocode loads automatically on selecting algorithm (Arpit)
+ 
+ 3. Correcting top and middle sections to properly accomodate on resizing (Arpit)
+    -replace % with pixel
+	 (location: .css file)
+	-middle section towards the left
+  
+    Results section needs work
+    -Khaled's latest index.html, chmviwerfunction.js
+    -Results section: double results shown
+ 
+ 4. horizontal scroll-bar: (Arpit)
+ 
+ 5. IE/Chrome/Firefox browser (Khaled)
+ 
+ 6. Redesign middle section   (Khaled)
+  -customize buttons (not default)
+  -Buttons need to be aligned
