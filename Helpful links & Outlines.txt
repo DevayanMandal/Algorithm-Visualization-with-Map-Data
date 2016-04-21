@@ -1,0 +1,27 @@
+Helpful links:
+ Razieh's project:
+  http://tm.teresco.org/hbtest/mapview.php?rg=NM&u=terescoj
+ Clinched Highways:
+  http://cmap.m-plex.com/index.php
+ Prof Teresco's Maps:
+  http://courses.teresco.org/chm/
+
+Files
+ AlgorithmVisualization
+  extremesviz
+   chmviewerfunc3.js (918)
+   index.html (175)
+     http://10.19.50.7/~mandal/EduTools-master/AlgorithmVisualization/extremesviz/index.html
+     http://66.195.8.98/~mandal/EduTools-master/AlgorithmVisualization/extremesviz/index.html
+   smallintersection.png
+   smallpinkdot.png
+   
+ HighwayDataExplorer
+   chmviewerfunc3.js (704)
+   index.html (161)
+   smallintersection.png
+   
+ CreateGraphs
+  LatLng.java (198)
+  MakeData.java (981)
+  MergeNearMissPoints.java (384)
