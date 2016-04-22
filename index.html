@@ -88,32 +88,31 @@
 </style>
 
 <!-- new window -->
-<script>
+<script> 
     function pseducodeNewWindow(){
         var myWindow = window.open("", "new window", "right=0, top=0, width=500, height=500");
-        myWindow.document.write("<h1>Algorithm Description:</h1>");
-         myWindow.document.write("<p>It is often useful to find an extreme point of a 2D polygon. For example, the vertices with maximal or minimal x-coordinates or y-coordinates define a polygon's bounding box. More generally, one might want to find an extreme point in an arbitrary direction. For any set of n points, such as an n-vertex polygon, this is easily done in O(n) time by testing each point against the previously found extreme. But, for the special case of a convex polygon, an adaptation of binary searching can find the extreme point in only O(log-n) time. We describe this algorithm in detail for an arbitrary query direction vector u. Also, we show how this algorithm can be applied to compute the distance from a convex polygon to a line.</p>");
-         myWindow.document.write("<br/>");
-		  myWindow.document.write("<p>Note that the convex hull of a point set or polygon is precisely the collection of extreme points in all possible directions. Thus, if several extreme point queries are expected for an arbitrary polygon, it may make sense to first compute its convex hull, and then do queries on this hull in O(log-h) time, where h.le.n is the number of hull vertices. For 2D simple polygons, the convex hull can be found efficiently in O(n) time.</p>");
+        myWindow.document.write("<h1>Pseudo-code for Dijkstra's Algorithm</h1>");
+        myWindow.document.write("<p>Dijkstra’s Algorithm is a procedure to find shortest paths from a given vertex s in a graph G to all other vertices – the single-source shortest path problem. The algorithm incrementally builds a sub-graph of G which is in fact a tree containing shortest paths from s to every other vertex in the tree. A step of the algorithm consists of determining which vertex to add to the tree next. This is a variant of the approach in the Bailey text and the approach you will use when you code this.</p>"); 
         myWindow.document.write("<br/>");
-		myWindow.document.write("<h1>Algorithm Pseudo-code:</h1>");
-		myWindow.document.write("<p>The straightforward brute-force way to find an extreme point is to test all points incrementally, and remember the current extreme for the points tested so far. Each new point considered only has to be compared to the current extreme one. This works for any set of n points, and is clearly an O(n) algorithm. The algorithm for finding the extreme maximum and minimum relative to u is simple, as shown in the following pseudo-code.</p>");
-		myWindow.document.write("<br/>");
-	   myWindow.document.write("<p>Input: W = {V0,V1,...,Vn-1}  is a set of n points</p>");
-        myWindow.document.write("<p>u = a direction vector</p>");
-        myWindow.document.write("<p>Put: max = min = 0</p>");
-        myWindow.document.write("<p>for each point Vi in {V1,...,Vn-1}  (i=1,n-1)</p>");
-        myWindow.document.write("<p>{</p>");
-        myWindow.document.write("<p>if (u · (Vi - Vmax) > 0) {  // Viis above the prior max</p>");
-        myWindow.document.write("<p>max = i;                // new max index = i</p>");
-        myWindow.document.write("<p>continue;               // a new max can't be a new min</p>");
+        myWindow.document.write("<p>/* initialization */</p>");
+        myWindow.document.write("<p>PriorityQueue openList = { startVertex }</p>");
+        myWindow.document.write("<p>array cost = { Big, Big, Big, ... }</p>");
+        myWindow.document.write("<p>array pred = { No, No, No, ... }</p>");
+        myWindow.document.write("<p>cost[startVertex] = 0;</p>");
+        myWindow.document.write("<br/>");
+        myWindow.document.write("<p>/* loop*/</p>");
+        myWindow.document.write("<p>while ( !openList.empty())  {</p>");
+        myWindow.document.write("<p>closingVertex = vertex in openList with minimum value in cost[];</p>");
+        myWindow.document.write("<p>remove closingVertex from openList;</p>");
+        myWindow.document.write("<br/>");
+        myWindow.document.write("<p>for each non-closed vertex with an edge from closingVertex  {</p>");
+        myWindow.document.write("<p>if ( cost[vertex] > cost[closingVertex] + edgeWeight ) {</p>");
+        myWindow.document.write("<p>cost[vertex] = cost[closingVertex] + edgeWeight;</p>");
+        myWindow.document.write("<p>pred[vertex] = closingVertex;</p>");
+        myWindow.document.write("<p>put vertex into openList;</p>");
         myWindow.document.write("<p>}</p>");
-        myWindow.document.write("<p>if (u · (Vi - Vmin) < 0)    // Vi is below the prior min</p>");
-        myWindow.document.write("<p>min = i;                // new min index = i</p>");
         myWindow.document.write("<p>}</p>");
-        myWindow.document.write("<p>return max = index of max vertex</p>");
-		myWindow.document.write("<br/>");
-        myWindow.document.write("<p>For an arbitrary set of points without structure, this is the best one can do. For a set of n points, this algorithm will perform (n-1) dot product comparisons to compute the maximum of a set.</p>");
+        myWindow.document.write("<p>}</p>");
     }
 </script>
     
@@ -128,14 +127,19 @@
 	
 
 	<div id="controlbox">
-		<span id="filename">Select a file to display</span>
+        <!-- result when you start algorithm -->
+		
+        <div id="resultWrap">
+            <p id="status">&nbsp;</p> 
+        </div>
+        <div id="allControl">
+		<span id="filename" style="display:none;">Select a file to display</span>
 
 		<!-- Choose a file -->
 		<input id="file" type="file" onchange="startRead()">
 		<!-- <input id="showHidden" type="checkbox" name="Show Hidden Markers" onclick="showHiddenClicked()" checked="false">&nbsp;Show Hidden Markers -->
 		
-		<!-- start search button -->
-		<input id="startSearch" type="button" value="Point Search Viz" disabled="true" onclick="startSearch(), pseducodeNewWindow()">
+		
 		
 		<!-- change speed selector 
 		<select id="speedChanger" onchange="speedChanged()">
@@ -148,26 +152,30 @@
 		  <option value="1000">Painfully slow</option>
 		</select>
         -->
-        
+         <label id="speed-label">Speed</label>
         <div style="width: 150px; display: inline-block;">
+           
             <input id="range_16" class="irs-hidden-input" style="display:none;" onchange="onSpeedChanged()" readonly="">
         </div>
-			
+		
+        <!-- start search button -->
+		<input id="startSearch" type="button" value="Start" disabled="true" onclick="startSearch()">
+        	
 		<!-- pause button -->
 		<input id="pauseRestart" type="button" value="Pause" disabled="true" onclick="pauseRestart()">
 		
 		<!-- Diff algorithm selector -->
-		<select id="diffAlgorithm" onchange="">
-			<option value="1" selected>Extreme Waypoint Search Algorithm</option>
-			<option value="2">Longest/Shortest Edge Search Algorithm</option>
-			<option value="3">Future Algorithm</option>
+		<select id="diffAlgorithm" onchange="onAlgorithmChange()">
+		  <option value="1" selected>Extreme Point</option>
+		  <option value="2">Edge Based</option>
+		  <option value="3">Dijkstra's</option>
 		</select>
 		
         <!-- new window -->
-        <button onclick="pseducodeNewWindow()">Pseudo Code</button>
+        <button id= "Pseudo" onclick="pseducodeNewWindow()">Pseudo Code</button>
         
-		<!-- result when you start algorithm -->
-		<p id="status"></p> 
+		
+        </div>
 	</div>
 	
 	<div id="pointbox">
