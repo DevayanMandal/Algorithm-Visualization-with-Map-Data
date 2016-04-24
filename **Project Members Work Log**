@@ -1,9 +1,10 @@
 Algorithm Visualization with Map Data Project Members Work Log
 (Implementing Prof Gero's recommendation of starting a work log)
 
-Arpit:
+-------------------------------Arpit--------------------------------------
 
-Devayan:
+-------------------------------Devayan------------------------------------
+
 **4/23**:
 Added 5 changes in UI
 1. Not to discredit Khaled's work, but I fixed the 'Results' section within the p #status console itself
@@ -31,7 +32,8 @@ Miscellaneous:
 I forked over the repository and added all team members, just in case they were not acquainted with the TravelMapping repository.
 I updated the ReadME.md in the repository.
 
-Ikhlas:
+-------------------------------Ikhlas-------------------------------------
+
 **3/1**
 I explained to the team members how to import the algorithm visualization files (.gra, .nmp etc) and demo Prof Teresco's existing 'Highway Data Examiner' website
 
@@ -45,5 +47,4 @@ c. Linked a .css file to the exisiting .html file to bring about basic cascading
 
 d. Improved the user interface experience further by adding borders around the #map (using div functionality). Also, updated the font to be universal for all front-end text.
 
-
-Khaled:
+-------------------------------Khaled-------------------------------------
