@@ -1,0 +1,31 @@
+Algorithm Visualization with Map Data Project Members Work Log
+Arpit:
+
+Devayan:
+**4/23**:
+Added 5 changes in UI
+1. Not to discredit Khaled's work, but I fixed the 'Results' section within the p #status console itself
+a. aligned div #pointbox
+b. aligned div #map
+
+Both fit within the computer screen (on-campus computer)
+ 
+2. Added map legend
+
+3. Changed page title: Algorithm Visualization with Map Data
+
+4. Changed the name of label, “Point Search Viz” to “Start Algorithm Visualization
+
+5. Changed order of levels in speed might better be described as ‘Very Slow – Slow – Moderately Slow – Moderately Fast – Fast – Very Fast – Extremely Fast’ instead of ‘Painfully Slow - Slow – Pretty Slow – Medium Speed – Fast – Very Fast – Extremely Fast
+
+Miscellaneous:
+1. Uploaded Prof Teresco's handout regarding Dijkstra's Algorithm, Graph.pdf for everyone's reference (in Master branch on our Github)
+2. Added Prof Gero's recommended algorithm visualization website: http://algoviz.org/catalog/entry/902 in Helpful links & Outlines.txt (in Master branch on our Github)
+
+4/24
+Miscellaneous:
+1. Created Project Members Work Log
+
+Ikhlas:
+
+Khaled:
