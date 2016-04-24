@@ -5,6 +5,10 @@ Algorithm Visualization with Map Data Project Members Work Log
 
 -------------------------------Devayan------------------------------------
 
+**4/5, 4/12, 4/13 and 4/14**
+Collaborated one-on-one with Ikhlas (in person and TeamViewer/Google Hangouts) to understand what changes may be required to implement the Longest/Shortest Edge Search Algorithm.
+I compiled questions and doubts which were generated during the discussion and clarified those during client visits.
+
 **4/23**:
 Added 5 changes in UI
 1. Not to discredit Khaled's work, but I fixed the 'Results' section within the p #status console itself
@@ -56,7 +60,7 @@ c. Linked a .css file to the exisiting .html file to bring about basic cascading
 d. Improved the user interface experience further by adding borders around the #map (using div functionality). Also, updated the font to be universal for all front-end text.
 
 **4/13**
-1. Discussed with Prof Teresco (via email and Arpit, Devayan and Khaled met Prof Teresco during office hours) as to how the Longest/Shortest Edge Search Algorithm will be implemented:
+1. Discussed with the client (via email and Arpit, Devayan and Khaled met the client during office hours) as to how the Longest/Shortest Edge Search Algorithm will be implemented:
 a. Understood the purpose of the algorithm
 b. Understood the pseudocode involved
 c. Understood what segments of the .js and .html file might need require changes
@@ -65,7 +69,7 @@ c. Understood what segments of the .js and .html file might need require changes
 
 **4/14**
 a. Worked on implementing the above 3 points at home.
-b. Discussed further with Prof Teresco (via email) about implementation of the algorithm.
+b. Discussed further with the client (via email) about implementation of the algorithm.
 
 **4/15**
 Worked on implementing the above 3 points at home.
