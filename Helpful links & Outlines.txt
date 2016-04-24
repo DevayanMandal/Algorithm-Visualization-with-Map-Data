@@ -1,8 +1,13 @@
 Helpful links:
+ Prof Gero's recommended algorithm visualization website:
+  http://algoviz.org/catalog/entry/902
+ 
  Razieh's project:
   http://tm.teresco.org/hbtest/mapview.php?rg=NM&u=terescoj
+  
  Clinched Highways:
   http://cmap.m-plex.com/index.php
+  
  Prof Teresco's Maps:
   http://courses.teresco.org/chm/
 
