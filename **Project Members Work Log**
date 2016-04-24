@@ -23,14 +23,22 @@ Both fit within the computer screen (on-campus computer)
 
 Miscellaneous:
 1. Uploaded Prof Teresco's handout regarding Dijkstra's Algorithm, Graph.pdf for everyone's reference (in Master branch on our Github)
+
 2. Added Prof Gero's recommended algorithm visualization website: http://algoviz.org/catalog/entry/902 in Helpful links & Outlines.txt (in Master branch on our Github)
 
 **4/24**:
 Miscellaneous:
 1. Created Project Members Work Log
+
 2. I believe Prof Teresco had already added Arpit, Khaled and Ikhlas to the repository: TravelMapping
 I forked over the repository and added all team members, just in case they were not acquainted with the TravelMapping repository.
 I updated the ReadME.md in the repository.
+
+3. Editted and added 2 documents:
+ a. Algorithm - Dijkstra's Description Pseudocode
+ b. Algorithm - Extreme Waypoint Search Description Pseudocode
+ 
+Khaled and Arpit haven been requested via Whatsapp to only copy-paste these documents (preserving the format) for each respective Pseudocode window.
 
 -------------------------------Ikhlas-------------------------------------
 
