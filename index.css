@@ -45,59 +45,13 @@ body, html {
 	box-shadow: inset 2px -8px 20px -4px rgba(0,0,0,0.75);
 }
 
-#resultWrap{
-    float: left;
-}
-
-#resultWrap p {
-    margin: 2px 0;
-}
-
-#allControl
-{
-    float:right;
-}
-
-#Pseudo, #diffAlgorithm, #file
-{
-        vertical-align: bottom;
-}
-#Pseudo {
-    margin-left:20px;
-}
-
-#file {
-    width:200px;
-}
-
 #filename{
 	padding-right:5px;
-    font-size:13.3333px;
-    vertical-align: bottom;
 }
-
 
 #filename, #file, #startSearch, #speedChanger, #pauseRestart{
 	font-weight:bold;
 }
-
-
-/*
-
-#pointbox {
-position: fixed;
-left: 0px;
-top: 160px;
-right:400px;
-bottom: 0px;
-width: 420px;
-overflow-x:hidden;
-overflow-y:auto;
-}
-
-*/
-
-
 
 #pointbox {
 position: fixed;
@@ -109,41 +63,20 @@ width: 420px;
 overflow:auto;
 }
 
-#speed-label
-{
-    margin-right: 4px;
-    VERTICAL-ALIGN: bottom;
-    font-size: 14.3333PX;
-    font-weight: bold;
-}
-
-#startSearch
-{
-    margin-left: 40px;
-    margin-right: 5px;
-    vertical-align: bottom;
-}
-
-#pauseRestart
-{
-    margin-right: 5px;
-    vertical-align: bottom;
-}
-
-
-/*
-
-#map {
+#legendbox {
 position: absolute;
-top:180px;
+top:200px;
 bottom:20px;
-left:420px;
-right:0px;
-overflow-x:scroll;
-width:950px;
+left:220px;
+right:10px;
+overflow:hidden;
+width:110px;
 
-*/
-
+border: 5px solid #778185;
+-webkit-box-shadow: 10px 10px 18px -4px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 18px -4px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 18px -4px rgba(0,0,0,0.75);
+}
 
 #map {
 position: absolute;
@@ -152,7 +85,7 @@ bottom:20px;
 left:420px;
 right:0px;
 overflow:hidden;
-width:1450px;
+width:1150px;
 
 border: 5px solid #778185;
 -webkit-box-shadow: 10px 10px 18px -4px rgba(0,0,0,0.75);
@@ -211,9 +144,6 @@ border-spacing: 0px;
 margin-left: auto;
 margin-right: auto;
 background-color:white;
-word-wrap:break-word;
-table-layout: fixed;
-
 }
 
 table.gratable  td, th {
