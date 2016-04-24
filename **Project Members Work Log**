@@ -34,39 +34,6 @@ I updated the ReadME.md in the repository.
 
 -------------------------------Ikhlas-------------------------------------
 
-**3/1**
-I explained to the team members how to import the algorithm visualization files (.gra, .nmp etc) and demo Prof Teresco's existing 'Highway Data Examiner' website
 
-**3/8**
-I worked on the User Interface components of the website. (Even though User Interface is Khaled and Arpit's responsibility)
-a. Changed title from: 'HDX (Draft Algorithm Viz): Select a file to display' to 'Clinched Highway Mapping'.
-
-b. Added an embossed middle toolbar to bring the user's attention to the Algorithm Visualization buttons.
-
-c. Linked a .css file to the exisiting .html file to bring about basic cascading style sheets functionality and improve the user interface experience.
-
-d. Improved the user interface experience further by adding borders around the #map (using div functionality). Also, updated the font to be universal for all front-end text.
-
-**4/13**
-Discussed with Prof Teresco (via email and Arpit, Devayan and Khaled met Prof Teresco during office hours) as to how the Longest/Shortest Edge Search Algorithm will be implemented:
-a. Understood the purpose of the algorithm
-b. Understood the pseudocode involved
-c. Understood what segments of the .js and .html file might need require changes
-
-**4/14**
-a. Worked on implementing the above 3 points at home.
-b. Discussed further with Prof Teresco (via email) about implementation of the algorithm.
-
-**4/15**
-Worked on implementing the above 3 points at home.
-Additions/deletions/changes/improvements: comments made in the .js, .html, .css files on Github (Can be accessed by viewing history of each of those files)
-
-**4/17**
-Worked on implementing the above 3 points at home.
-Additions/deletions/changes/improvements: comments made in the .js, .html, .css files on Github (Can be accessed by viewing history of each of those files)
-
-**4/18**
-a. Finished implementing the above 3 points at home.
-b. Integrated the Longest/Shortest Edge Search Algorithm into the exisiting project files.
 
 -------------------------------Khaled-------------------------------------
