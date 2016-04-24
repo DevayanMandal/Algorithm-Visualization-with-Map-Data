@@ -56,10 +56,12 @@ c. Linked a .css file to the exisiting .html file to bring about basic cascading
 d. Improved the user interface experience further by adding borders around the #map (using div functionality). Also, updated the font to be universal for all front-end text.
 
 **4/13**
-Discussed with Prof Teresco (via email and Arpit, Devayan and Khaled met Prof Teresco during office hours) as to how the Longest/Shortest Edge Search Algorithm will be implemented:
+1. Discussed with Prof Teresco (via email and Arpit, Devayan and Khaled met Prof Teresco during office hours) as to how the Longest/Shortest Edge Search Algorithm will be implemented:
 a. Understood the purpose of the algorithm
 b. Understood the pseudocode involved
 c. Understood what segments of the .js and .html file might need require changes
+
+2. Added the 'Pseudocode' button in the middle toolbar. Integrated the functionality of the same with the .js and .css file.
 
 **4/14**
 a. Worked on implementing the above 3 points at home.
