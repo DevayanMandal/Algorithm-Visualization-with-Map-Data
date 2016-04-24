@@ -1,4 +1,3 @@
-//
 // CHM Data Viewer-related Javascript functions
 //
 // Load and view data files related to Clinched Highway Mapping (CHM)
@@ -104,16 +103,6 @@ var intersectionimage = {
     // The anchor for this image is the center of the intersection
     anchor: new google.maps.Point(8, 8)
   };
-
-function onAlgorithmChange() {
-    var newVal = $('#diffAlgorithm').val();
-    if (newVal == "2") {
-        document.getElementById('edgeTable').scrollIntoView();
-    } else {
-        document.getElementById('connectionTable').scrollIntoView();
-    }
-    $('.gratable').find('tr').attr('style', '');
-}
 
 // loadmap constructs and sets up the initial map
 function loadmap() {
@@ -222,7 +211,7 @@ function processContents(fileContents) {
 	pointboxContents = parseWPLContents(fileContents);
     }
     else if (fileName.indexOf(".gra") >= 0) {
-	document.getElementById('filename').innerHTML = fileName + " (Highway Graph File)";
+	document.getElementById('filename').innerHTML = fileName + " (Graph File)";
 	pointboxContents = parseGRAContents(fileContents);
     }
     
@@ -256,10 +245,8 @@ function parseGRAContents(fileContents) {
     var numV = parseInt(counts[0]);
     var numE = parseInt(counts[1]);
     var sideInfo = '<p style="font-size:12pt">' + numV + " waypoints, " + numE + " connections.</p>";
-    
-    $("#status").after(sideInfo);
-    
-    var vTable = '<table id="connectionTable" class="gratable"><thead><tr><th colspan="3">Waypoints</th></tr><tr><th>#</th><th>Coordinates</th><th>Waypoint Name</th></tr></thead><tbody>';
+
+    var vTable = '<table class="gratable"><thead><tr><th colspan="3">Waypoints</th></tr><tr><th>#</th><th>Coordinates</th><th>Waypoint Name</th></tr></thead><tbody>';
 
     waypoints = new Array(numV);
     for (var i = 0; i < numV; i++) {
@@ -275,7 +262,7 @@ function parseGRAContents(fileContents) {
     }
     vTable += '</tbody></table>';
 
-    var eTable = '<table id="edgeTable" class="gratable"><thead><tr><th colspan="3">Connections</th></tr><tr><th>#</th><th>Route Name(s)</th><th>Endpoints</th></tr></thead><tbody>';
+    var eTable = '<table class="gratable"><thead><tr><th colspan="3">Connections</th></tr><tr><th>#</th><th>Route Name(s)</th><th>Endpoints</th></tr></thead><tbody>';
     graphEdges = new Array(numE);
     for (var i = 0; i < numE; i++) {
 	var edgeInfo = lines[i+numV+1].split(' ');
@@ -287,7 +274,7 @@ function parseGRAContents(fileContents) {
     }
     eTable += '</tbody></table>';
     genEdges = false;
-    return vTable + '<p />' + eTable;
+    return sideInfo + vTable + '<p />' + eTable;
 }
 
 // parse the contents of a .wpt file
@@ -739,7 +726,6 @@ var longestIndex = 0;
 //NORTHSOUTH()
 function startSearch() {
 
-    $('.gratable').find('tr').attr('style', '');
 
     var statusLine = document.getElementById("status");
     statusLine.innerHTML = "Preparing for Extreme Point Search Visualization";
@@ -864,7 +850,7 @@ function continueSearch2() {
 			}
 		}
 		else {
-			statusLine.innerHTML = "Results: Shorest Edage: " + graphEdges[shortestIndex].v1 + "LongestEdage: " + graphEdges[longestIndex].v1
+			statusLine.innerHTML = "Done! Results: Shortest Edge: #" + graphEdges[shortestIndex].v1 + " Longest Edge: #" + graphEdges[longestIndex].v1 + "."
 		}
 }
 
@@ -1030,7 +1016,7 @@ function continueSearch() {
 	}
     }
     else {
-	statusLine.innerHTML = "Results: N: " + northIndex + " S:" + southIndex + " E: " + eastIndex + " W:" + westIndex;
+	statusLine.innerHTML = "Done! Results: North: #" + northIndex + "  ,South: #" + southIndex + "  ,East: #" + eastIndex + "  ,West: #" + westIndex;
     }
 }
 
