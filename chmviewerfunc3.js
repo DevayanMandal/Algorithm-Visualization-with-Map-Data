@@ -1020,7 +1020,7 @@ function continueSearch() {
     }
 }
 
-// JS debug window by Mike Maddox from 
+//JS debug window by Mike Maddox from
 // http://javascript-today.blogspot.com/2008/07/how-about-quick-debug-output-window.html
 var DBG = {
     write : function(txt){
