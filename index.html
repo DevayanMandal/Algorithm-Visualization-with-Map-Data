@@ -137,8 +137,7 @@
         myWindow.document.write("<p>For an arbitrary set of points without structure, this is the best one can do. For a set of n points, this algorithm will perform (n-1) dot product comparisons to compute the maximum of a set.</p>");
     }
     
-    function DirectionNewWindow()
-	{
+    function GetHelpPopup(){
         var myWindow = window.open("", "new window", "right=0, top=0, width=500, height=500");
         myWindow.document.write("<h1>Directions to use this Application</h1>");
          myWindow.document.write("<p>1) Choose a File from your Local Drive.</p>");
@@ -150,11 +149,12 @@
         myWindow.document.write("<p>5) Travelling through various algorithm can be possible.</p>");
        
         myWindow.document.write("<p>6) Select appropriate algorithm.</p>");
-        myWindow.document.write("<p>7) Pseducode button with display the Pseducode and description of the Algorithm.</p>");
-        
+        myWindow.document.write("<p>7) Pseducode button with display the Pseducode and description of the Algorithm.</p>");       
     }
     
-    
+        function GetInformationPopup() {
+        var myWindow = window.open("", "new window", "right=0, top=0, width=500, height=500"); 
+    } 
 </script>
     
 <title>Highway Data Examiner: Draft Algorithm Visualization Enhancement</title>
@@ -232,11 +232,9 @@
   Shortest route: <span class="auto-style4"><strong>dark blue </strong></span>
 	</div>
 	
-	<div id="gethelp" style="left: 1416px; right: 60px; top: 546px; bottom: 128px; width: 89px; height: 19px;" class="auto-style2">
-	<strong><button id="direction" onclick="DirectionNewWindow()" style="float: none;">Get Help</button></strong></div>
-	
-	<div id="getinformation" style="left: 1417px; right: 59px; top: 587px; bottom: 68px; width: 89px; height: 19px;" class="auto-style2">
-	<strong>Get Information</strong></div>
-	
+	<div id="gethelp" style="left: 1418px; right: 55px; top: 552px; bottom: 109px; width: 80px; height: 44px;" class="auto-style2">
+	<button id="direction" onclick="GetHelpPopup()" style="float: none;">Get Help</button>
+	<button id="direction" onclick="GetInformationPopup()" style="float: none; height: 19px;">Get Info</button>
+	</div>
 	</body>
 </html>
