@@ -695,11 +695,11 @@ function speedChanged() {
 
 // support for pause/restart button
 var paused = false;
-function pauseRestart() {
-    var button = document.getElementById("pauseRestart");
+function pauseResume() {
+    var button = document.getElementById("pauseResume");
     paused = !paused;
     if (paused) {
-	button.value = "Restart";
+	button.value = "Resume";
     }
     else {
 	button.value = "Pause";
@@ -758,7 +758,7 @@ function startSearch() {
     nextToCheck = 0;
     statusLine.innerHTML = 'Checking: <span style="color:yellow">0</span>';
     // enable pause button
-    document.getElementById("pauseRestart").disabled = false;
+    document.getElementById("pauseResume").disabled = false;
 	
 	var userOption = document.getElementById("diffAlgorithm").value;
 	if(userOption == 1){
