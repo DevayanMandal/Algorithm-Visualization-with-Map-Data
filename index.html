@@ -106,6 +106,10 @@
 .auto-style7 {
 	text-align: right;
 }
+.auto-style8 {
+	font-size: large;
+	color: #000080;
+}
 </style>
 
 <!-- new window -->
@@ -135,27 +139,14 @@
         myWindow.document.write("<p>return max = index of max vertex</p>");
 		myWindow.document.write("<br/>");
         myWindow.document.write("<p>For an arbitrary set of points without structure, this is the best one can do. For a set of n points, this algorithm will perform (n-1) dot product comparisons to compute the maximum of a set.</p>");
-    }
-    
-    function GetHelpPopup(){
-        var myWindow = window.open("", "new window", "right=0, top=0, width=500, height=500");
-        myWindow.document.write("<h1>Directions to use this Application</h1>");
-         myWindow.document.write("<p>1) Choose a File from your Local Drive.</p>");
-         myWindow.document.write("<br/>");
-        myWindow.document.write("<p>2) File must be with a .gra extension.</p>");
-         myWindow.document.write("<p>For example: <b>ABC.gra</b></p>");
-        myWindow.document.write("<p>3) After loading a file, you will be able to see the output of selected file.</p>");
-        myWindow.document.write("<p>4) User can change the travelling speed.</p>");
-        myWindow.document.write("<p>5) Travelling through various algorithm can be possible.</p>");
-       
-        myWindow.document.write("<p>6) Select appropriate algorithm.</p>");
-        myWindow.document.write("<p>7) Pseducode button with display the Pseducode and description of the Algorithm.</p>");       
-    }
-    
-        function GetInformationPopup() {
-        var myWindow = window.open("", "new window", "right=0, top=0, width=500, height=500"); 
     } 
 </script>
+
+  <script>
+    function ReloadMainPage() {
+     location.reload();
+     }
+   </script>
     
 <title>Highway Data Examiner: Draft Algorithm Visualization Enhancement</title>
 </head>
@@ -175,7 +166,7 @@
 		<!-- <input id="showHidden" type="checkbox" name="Show Hidden Markers" onclick="showHiddenClicked()" checked="false">&nbsp;Show Hidden Markers -->
 		
 		<!-- start search button -->
-		<input id="startSearch" type="button" value="Start Algorithm Visualization" disabled="true" onclick="startSearch(), pseducodeNewWindow()">
+		<input id="startSearch" type="button" value="Start Algorithm Visualization" disabled="true" onclick="startSearch() <!--pseducodeNewWindow()-->">
 		
 		<!-- change speed selector 
 		<select id="speedChanger" onchange="speedChanged()">
@@ -194,10 +185,10 @@
         </div>
 			
 		<!-- pause button -->
-		<input id="pauseRestart" type="button" value="Pause the Algorithm" disabled="true" onclick="pauseRestart()">
+		<input id="pauseResume" type="button" value="Pause the Algorithm" disabled="true" onclick="pauseResume()">
 		
 		<!-- Diff algorithm selector -->
-		<select id="diffAlgorithm" onchange="">
+		<select id="diffAlgorithm" onchange="" <!--onclick="ReloadMainPage()"-->>
 			<option value="1" selected>Extreme Waypoint Search Algorithm</option>
 			<option value="2">Longest/Shortest Edge Search Algorithm</option>
 			<option value="3">Future Algorithm</option>
@@ -210,7 +201,7 @@
 		</button>
         
 		<!-- result when you start algorithm -->
-		<p id="status" style="height: 40px"></p> 
+		<p id="status" style="height: 40px"></p>
 	</div>
 	
 	<div id="pointbox" style="left: 11px; right: 1111px; top: 186px; bottom: 24px; width: 441px">
@@ -232,9 +223,12 @@
   Shortest route: <span class="auto-style4"><strong>dark blue </strong></span>
 	</div>
 	
-	<div id="gethelp" style="left: 1418px; right: 55px; top: 552px; bottom: 109px; width: 80px; height: 44px;" class="auto-style2">
-	<button id="direction" onclick="GetHelpPopup()" style="float: none;">Get Help</button>
-	<button id="direction" onclick="GetInformationPopup()" style="float: none; height: 19px;">Get Info</button>
-	</div>
+	<div id="gethelp" style="left: 1385px; right: 28px; top: 546px; bottom: 60px; width: 140px; height: 108px;" class="auto-style2">
+	Algorithm Visualization Steps 
+		and Map Data Files:
+	<a href="gethelppopup.html" target="_blank">
+     <span class="auto-style8">Get More Information</span></a><a href="gethelppopup.html" target="_blank" class="auto-style5">
+     </a>
+   	</div>
 	</body>
 </html>
