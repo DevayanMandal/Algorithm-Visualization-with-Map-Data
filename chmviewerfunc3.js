@@ -103,6 +103,16 @@ var intersectionimage = {
     // The anchor for this image is the center of the intersection
     anchor: new google.maps.Point(8, 8)
   };
+  
+  function onAlgorithmChange() {
+    var newVal = $('#diffAlgorithm').val();
+    if (newVal == "2") {
+        document.getElementById('connectionTable').scrollIntoView();
+    } else {
+        document.getElementById('edgeTable').scrollIntoView();
+    }
+    $('.gratable').find('tr').attr('style', '');
+  }
 
 // loadmap constructs and sets up the initial map
 function loadmap() {
@@ -245,8 +255,10 @@ function parseGRAContents(fileContents) {
     var numV = parseInt(counts[0]);
     var numE = parseInt(counts[1]);
     var sideInfo = '<p style="font-size:12pt">' + numV + " waypoints, " + numE + " connections.</p>";
+    
+    $("#status").after(sideInfo);
 
-    var vTable = '<table class="gratable"><thead><tr><th colspan="3">Waypoints</th></tr><tr><th>#</th><th>Coordinates</th><th>Waypoint Name</th></tr></thead><tbody>';
+    var vTable = '<table id="edgeTable" class="gratable"><thead><tr><th colspan="3">Waypoints</th></tr><tr><th>#</th><th>Coordinates</th><th>Waypoint Name</th></tr></thead><tbody>';
 
     waypoints = new Array(numV);
     for (var i = 0; i < numV; i++) {
@@ -262,7 +274,7 @@ function parseGRAContents(fileContents) {
     }
     vTable += '</tbody></table>';
 
-    var eTable = '<table class="gratable"><thead><tr><th colspan="3">Connections</th></tr><tr><th>#</th><th>Route Name(s)</th><th>Endpoints</th></tr></thead><tbody>';
+    var eTable = '<table id="connectionTable" class="gratable"><thead><tr><th colspan="3">Connections</th></tr><tr><th>#</th><th>Route Name(s)</th><th>Endpoints</th></tr></thead><tbody>';
     graphEdges = new Array(numE);
     for (var i = 0; i < numE; i++) {
 	var edgeInfo = lines[i+numV+1].split(' ');
@@ -274,7 +286,7 @@ function parseGRAContents(fileContents) {
     }
     eTable += '</tbody></table>';
     genEdges = false;
-    return sideInfo + vTable + '<p />' + eTable;
+    return  vTable + '<p />' + eTable;
 }
 
 // parse the contents of a .wpt file
@@ -726,6 +738,7 @@ var longestIndex = 0;
 //NORTHSOUTH()
 function startSearch() {
 
+    $('.gratable').find('tr').attr('style', '');
 
     var statusLine = document.getElementById("status");
     statusLine.innerHTML = "Preparing for Extreme Point Search Visualization";
@@ -820,15 +833,17 @@ function continueSearch2() {
 					markers[graphEdges[toCheck].v1].setIcon({path: google.maps.SymbolPath.CIRCLE,
 							  scale: 4,
 							  zIndex: google.maps.Marker.MAX_ZINDEX+2,
-							  fillColor: 'grey',
-							  strokeColor: 'grey'});
-					connections[toCheck].setOptions({strokeColor: 'grey'});
+							  fillColor: 'rgba(51, 51, 51, 0)',
+							  strokeColor: 'rgba(51, 51, 51, 0)'});
+					connections[toCheck].setOptions({strokeColor: 'rgba(51, 51, 51, 0)'});
 					var waypointToCheck = document.getElementById('graphEdge'+toCheck);
 					waypointToCheck.style.backgroundColor = "grey";
 				}
 			} else {
-				myBackgroundColorAlgo2(nextToCheck, graphEdges[nextToCheck].v1, graphEdges[nextToCheck].v2, 'grey');
+				myBackgroundColorAlgo2(nextToCheck, graphEdges[nextToCheck].v1, graphEdges[nextToCheck].v2, 'rgba(51, 51, 51, 0)');
 				document.getElementById('graphEdge'+nextToCheck).scrollIntoViewIfNeeded();
+                var waypointToCheck = document.getElementById('graphEdge'+nextToCheck);
+					waypointToCheck.style.backgroundColor = "grey";
 			}
 	}// end of else 
 	
@@ -850,7 +865,7 @@ function continueSearch2() {
 			}
 		}
 		else {
-			statusLine.innerHTML = "Done! Results: Shortest Edge: #" + graphEdges[shortestIndex].v1 + " Longest Edge: #" + graphEdges[longestIndex].v1 + "."
+			statusLine.innerHTML = "Results: Shortest Edge: #" + graphEdges[shortestIndex].v1 + " Longest Edge: #" + graphEdges[longestIndex].v1 + "."
 		}
 }
 
@@ -1016,7 +1031,7 @@ function continueSearch() {
 	}
     }
     else {
-	statusLine.innerHTML = "Done! Results: North: #" + northIndex + "  ,South: #" + southIndex + "  ,East: #" + eastIndex + "  ,West: #" + westIndex;
+	statusLine.innerHTML = "Results: North: #" + northIndex + "  ,South: #" + southIndex + "  ,East: #" + eastIndex + "  ,West: #" + westIndex;
     }
 }
 
