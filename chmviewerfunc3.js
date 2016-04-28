@@ -1,3 +1,4 @@
+//
 // CHM Data Viewer-related Javascript functions
 //
 // Load and view data files related to Clinched Highway Mapping (CHM)
@@ -103,16 +104,6 @@ var intersectionimage = {
     // The anchor for this image is the center of the intersection
     anchor: new google.maps.Point(8, 8)
   };
-  
-  function onAlgorithmChange() {
-    var newVal = $('#diffAlgorithm').val();
-    if (newVal == "2") {
-        document.getElementById('connectionTable').scrollIntoView();
-    } else {
-        document.getElementById('edgeTable').scrollIntoView();
-    }
-    $('.gratable').find('tr').attr('style', '');
-  }
 
 // loadmap constructs and sets up the initial map
 function loadmap() {
@@ -221,7 +212,7 @@ function processContents(fileContents) {
 	pointboxContents = parseWPLContents(fileContents);
     }
     else if (fileName.indexOf(".gra") >= 0) {
-	document.getElementById('filename').innerHTML = fileName + " (Graph File)";
+	document.getElementById('filename').innerHTML = fileName + " (Highway Graph File)";
 	pointboxContents = parseGRAContents(fileContents);
     }
     
@@ -255,10 +246,8 @@ function parseGRAContents(fileContents) {
     var numV = parseInt(counts[0]);
     var numE = parseInt(counts[1]);
     var sideInfo = '<p style="font-size:12pt">' + numV + " waypoints, " + numE + " connections.</p>";
-    
-    $("#status").after(sideInfo);
 
-    var vTable = '<table id="edgeTable" class="gratable"><thead><tr><th colspan="3">Waypoints</th></tr><tr><th>#</th><th>Coordinates</th><th>Waypoint Name</th></tr></thead><tbody>';
+    var vTable = '<table class="gratable"><thead><tr><th colspan="3">Waypoints</th></tr><tr><th>#</th><th>Coordinates</th><th>Waypoint Name</th></tr></thead><tbody>';
 
     waypoints = new Array(numV);
     for (var i = 0; i < numV; i++) {
@@ -274,7 +263,7 @@ function parseGRAContents(fileContents) {
     }
     vTable += '</tbody></table>';
 
-    var eTable = '<table id="connectionTable" class="gratable"><thead><tr><th colspan="3">Connections</th></tr><tr><th>#</th><th>Route Name(s)</th><th>Endpoints</th></tr></thead><tbody>';
+    var eTable = '<table class="gratable"><thead><tr><th colspan="3">Connections</th></tr><tr><th>#</th><th>Route Name(s)</th><th>Endpoints</th></tr></thead><tbody>';
     graphEdges = new Array(numE);
     for (var i = 0; i < numE; i++) {
 	var edgeInfo = lines[i+numV+1].split(' ');
@@ -286,7 +275,7 @@ function parseGRAContents(fileContents) {
     }
     eTable += '</tbody></table>';
     genEdges = false;
-    return  vTable + '<p />' + eTable;
+    return sideInfo + vTable + '<p />' + eTable;
 }
 
 // parse the contents of a .wpt file
@@ -536,11 +525,13 @@ function PTHLine2Waypoint(line) {
 }
 
 
-function GraphEdge(v1, v2, label) {
+function GraphEdge(v1, v2, label, flag, distance) {
 
     this.v1 = parseInt(v1);
     this.v2 = parseInt(v2);
     this.label = label;
+	this.flag = flag;
+	this.distance = distance;
     return this;
 }
 
@@ -616,6 +607,9 @@ function updateMap()
 	    edgePoints[1] = new google.maps.LatLng(waypoints[v2].lat, waypoints[v2].lon);
 	    connections[i] = new google.maps.Polyline({path: edgePoints, strokeColor: "#0000FF", strokeWeight: 10, strokeOpacity: 0.4, map: map});
 	    //map.addOverlay(connections[i]);
+		
+		graphEdges[i].flag = 0;
+		graphEdges[i].distance = -1;
 	}
     }
     else if (genEdges) {
@@ -707,15 +701,16 @@ function speedChanged() {
 
 // support for pause/restart button
 var paused = false;
-function pauseResume() {
-    var button = document.getElementById("pauseResume");
+function pauseRestart() {
+    var button = document.getElementById("pauseRestart");
     paused = !paused;
     if (paused) {
-	button.value = "Resume";
+	button.value = "Restart";
     }
     else {
-	button.value = "Pause";
-	continueSearch();
+		button.value = "Pause";
+		continueSearch();
+		continueSearch2();
     }
 }
 
@@ -738,7 +733,6 @@ var longestIndex = 0;
 //NORTHSOUTH()
 function startSearch() {
 
-    $('.gratable').find('tr').attr('style', '');
 
     var statusLine = document.getElementById("status");
     statusLine.innerHTML = "Preparing for Extreme Point Search Visualization";
@@ -771,7 +765,7 @@ function startSearch() {
     nextToCheck = 0;
     statusLine.innerHTML = 'Checking: <span style="color:yellow">0</span>';
     // enable pause button
-    document.getElementById("pauseResume").disabled = false;
+    document.getElementById("pauseRestart").disabled = false;
 	
 	var userOption = document.getElementById("diffAlgorithm").value;
 	if(userOption == 1){
@@ -780,8 +774,63 @@ function startSearch() {
 		setTimeout(continueSearch2, delay);
 	}
 	else if(userOption == 3){
+		setTimeout(continueSearch3, delay);
 	}
 }
+
+
+
+var stack = [];
+var v;
+function continueSearch3() {
+	
+	stack.push(graphEdges[nextToCheck].v1);
+	while(stack === undefined || stack.length == 0){
+		v = stack.pop(graphEdges[nextToCheck].v1);
+		if(){
+			visit(v);
+		}
+		for(){
+			if(w not yet visited){
+				stack.push(w);
+			}
+		}
+	}
+DBG.write(stack);
+
+
+
+// template - use later when algo is finish
+	if(nextToCheck == 0){
+	}else{
+	}
+
+	nextToCheck++;
+	if(nextToCheck < graphEdges.length) {
+			if (!paused) {
+				setTimeout(continueSearch3, delay);
+			}
+		}
+		else {
+				//results
+			 }
+}
+
+
+//markers, polyline, connections table
+function myBackgroundColorAlgo3( fi,  fv1,  fv2,  fcolor1, fcolor2) {
+	markers[fv1].setIcon({path: google.maps.SymbolPath.CIRCLE,
+						  scale: 4,
+						  zIndex: google.maps.Marker.MAX_ZINDEX+2,
+						  fillColor: fcolor1,
+						  strokeColor: fcolor1});
+			var edgePoints = new Array(2);
+			edgePoints[0] = new google.maps.LatLng(waypoints[fv1].lat, waypoints[fv1].lon);
+			edgePoints[1] = new google.maps.LatLng(waypoints[fv2].lat, waypoints[fv2].lon);
+			connections[fi] = new google.maps.Polyline({path: edgePoints, strokeColor: fcolor2, strokeWeight: 10, strokeOpacity: 0.4, map: map});
+			document.getElementById('graphEdge'+fi).style.backgroundColor = fcolor2;
+}
+
 
 function continueSearch2() {
 	var w1Lat = waypoints[graphEdges[nextToCheck].v1].lat;
@@ -833,17 +882,15 @@ function continueSearch2() {
 					markers[graphEdges[toCheck].v1].setIcon({path: google.maps.SymbolPath.CIRCLE,
 							  scale: 4,
 							  zIndex: google.maps.Marker.MAX_ZINDEX+2,
-							  fillColor: 'rgba(51, 51, 51, 0)',
-							  strokeColor: 'rgba(51, 51, 51, 0)'});
-					connections[toCheck].setOptions({strokeColor: 'rgba(51, 51, 51, 0)'});
+							  fillColor: 'grey',
+							  strokeColor: 'grey'});
+					connections[toCheck].setOptions({strokeColor: 'grey'});
 					var waypointToCheck = document.getElementById('graphEdge'+toCheck);
 					waypointToCheck.style.backgroundColor = "grey";
 				}
 			} else {
-				myBackgroundColorAlgo2(nextToCheck, graphEdges[nextToCheck].v1, graphEdges[nextToCheck].v2, 'rgba(51, 51, 51, 0)');
+				myBackgroundColorAlgo2(nextToCheck, graphEdges[nextToCheck].v1, graphEdges[nextToCheck].v2, 'grey');
 				document.getElementById('graphEdge'+nextToCheck).scrollIntoViewIfNeeded();
-                var waypointToCheck = document.getElementById('graphEdge'+nextToCheck);
-					waypointToCheck.style.backgroundColor = "grey";
 			}
 	}// end of else 
 	
@@ -865,7 +912,7 @@ function continueSearch2() {
 			}
 		}
 		else {
-			statusLine.innerHTML = "Results: Shortest Edge: #" + graphEdges[shortestIndex].v1 + " Longest Edge: #" + graphEdges[longestIndex].v1 + "."
+			statusLine.innerHTML = "Done! Results: Shorest Edage: " + graphEdges[shortestIndex].v1 + "LongestEdage: " + graphEdges[longestIndex].v1
 		}
 }
 
@@ -1031,11 +1078,11 @@ function continueSearch() {
 	}
     }
     else {
-	statusLine.innerHTML = "Results: North: #" + northIndex + "  ,South: #" + southIndex + "  ,East: #" + eastIndex + "  ,West: #" + westIndex;
+	statusLine.innerHTML = "Done! Results: N: " + northIndex + " S:" + southIndex + " E: " + eastIndex + " W:" + westIndex;
     }
 }
 
-//JS debug window by Mike Maddox from
+// JS debug window by Mike Maddox from
 // http://javascript-today.blogspot.com/2008/07/how-about-quick-debug-output-window.html
 var DBG = {
     write : function(txt){
