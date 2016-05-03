@@ -760,6 +760,11 @@ function startSearch() {
     // enable pause button
     document.getElementById("pauseResume").disabled = false;
 	
+	whichAlgoToRun();
+
+}
+
+function whichAlgoToRun() {
 	var userOption = document.getElementById("diffAlgorithm").value;
 	if(userOption == 1){
 		setTimeout(continueSearch, delay);
@@ -777,22 +782,46 @@ function startSearch() {
 	}
 }
 
-
-
+var result5 = [];
 var priorityQueue = [];
+var flag5 = true;
 function continueSearch5() {
-
-priorityQueue.push([1, 'a', 'c']);
-
-DBG.write(priorityQueue);
-
+	
+		if(flag5 == true){
+			result5.push([waypoint[0], 0, 'null']);
+			flag5 = false;
+		}
+	
+	
 	var w1Lat = waypoints[graphEdges[nextToCheck].v1].lat;
 	var w1Lon = waypoints[graphEdges[nextToCheck].v1].lon;
 	var w2Lat = waypoints[graphEdges[nextToCheck].v2].lat;
 	var w2Lon = waypoints[graphEdges[nextToCheck].v2].lon;
 	var mileage = Mileage(w1Lat, w1Lon, w2Lat, w2Lon);
 	
+	//find its neighbor and add it to priorityQueue
+	for(var i = 0; i < graphEdges.length; i++){
+		if(nextToCheck == graphEdges[i].v1 || nextToCheck == graphEdges[i].v2){
+			if(nextToCheck == graphEdges[i].v1){
+				priorityQueue.push([mileage, graphEdges[i].v1, graphEdges[i].v2]);
+			}
+			else if(nextToCheck == graphEdges[i].v2){
+				priorityQueue.push([mileage, graphEdges[i].v2, graphEdges[i].v1]);
+			}
+		}
+	}
 	
+	//pick the smallest dis from priorityQueue
+	var saveI = 0;
+	for(var s = 0; s < priorityQueue.length; s++){
+		var small = priorityQueue[0][0];
+		if(small < priorityQueue[s][0]){
+			small = priorityQueue[s][0];
+			saveI = s;
+		}
+	}
+	//push in on result5 array
+	result5.push([priorityQueue[saveI][2], priorityQueue[saveI][0], priorityQueue[saveI][1]]);
 	
 	nextToCheck++;
 	
@@ -803,6 +832,7 @@ DBG.write(priorityQueue);
 			}
 	}
 }
+
 
 
 
@@ -836,8 +866,8 @@ function continueSearch4() {
 				markers[graphEdges[nextToCheck].v1].setIcon({path: google.maps.SymbolPath.CIRCLE,
 						  scale: 4,
 						  zIndex: google.maps.Marker.MAX_ZINDEX+2,
-						  fillColor: 'yellow',
-						  strokeColor: 'yellow'});
+						  fillColor: 'grey',
+						  strokeColor: 'grey'});
 				document.getElementById('waypoint'+nextToCheck).style.backgroundColor = 'yellow';
 				document.getElementById('waypoint'+nextToCheck).scrollIntoViewIfNeeded();
 				defeated.push(queue[0]);
@@ -854,8 +884,8 @@ function continueSearch4() {
 					markers[graphEdges[nextToCheck].v2].setIcon({path: google.maps.SymbolPath.CIRCLE,
 						  scale: 4,
 						  zIndex: google.maps.Marker.MAX_ZINDEX+2,
-						  fillColor: 'yellow',
-						  strokeColor: 'yellow'});
+						  fillColor: 'grey',
+						  strokeColor: 'grey'});
 				document.getElementById('waypoint'+nextToCheck).style.backgroundColor = 'yellow';
 				document.getElementById('waypoint'+nextToCheck).scrollIntoViewIfNeeded();
 				defeated.push(queue[0]);	
@@ -926,7 +956,6 @@ function continueSearch3() {
 		flag = false;
 	}
 
-
 	//step 3. check to see if either end point place are current one
 	if(stack[stack.length - 1] == graphEdges[nextToCheck].v1 || stack[stack.length - 1] == graphEdges[nextToCheck].v2){
 		if(stack[stack.length - 1] != graphEdges[nextToCheck].v1){
@@ -940,8 +969,8 @@ function continueSearch3() {
 					markers[graphEdges[nextToCheck].v1].setIcon({path: google.maps.SymbolPath.CIRCLE,
 						  scale: 4,
 						  zIndex: google.maps.Marker.MAX_ZINDEX+2,
-						  fillColor: 'yellow',
-						  strokeColor: 'yellow'});
+						  fillColor: 'grey',
+						  strokeColor: 'grey'});
 				document.getElementById('waypoint'+nextToCheck).style.backgroundColor = 'yellow';
 				document.getElementById('waypoint'+nextToCheck).scrollIntoViewIfNeeded();
 				defeated.push(stack[stack.length - 1]);
@@ -959,8 +988,8 @@ function continueSearch3() {
 					markers[graphEdges[nextToCheck].v2].setIcon({path: google.maps.SymbolPath.CIRCLE,
 						  scale: 4,
 						  zIndex: google.maps.Marker.MAX_ZINDEX+2,
-						  fillColor: 'yellow',
-						  strokeColor: 'yellow'});
+						  fillColor: 'grey',
+						  strokeColor: 'grey'});
 				document.getElementById('waypoint'+nextToCheck).style.backgroundColor = 'yellow';
 				document.getElementById('waypoint'+nextToCheck).scrollIntoViewIfNeeded();
 				defeated.push(stack[stack.length - 1]);	
@@ -1039,6 +1068,7 @@ function continueSearch2() {
 			var defeated = new Array();
 			var mileage = Mileage(w1Lat, w1Lon, w2Lat, w2Lon);
 
+			//find new shortest and longest edage
 			if(shortestEdage > mileage){
 				foundNewLeader = true;
 				defeated.push(shortestIndex);
@@ -1055,9 +1085,11 @@ function continueSearch2() {
 			if (foundNewLeader) {
 				if(shortestIndex == nextToCheck){
 					myBackgroundColorAlgo2(nextToCheck, graphEdges[nextToCheck].v1, graphEdges[nextToCheck].v2, 'brown');
+					markers[graphEdges[nextToCheck].v1].setIcon(null);
 					document.getElementById('graphEdge'+nextToCheck).scrollIntoViewIfNeeded();
 				}else if(longestIndex == nextToCheck){
 					myBackgroundColorAlgo2(nextToCheck, graphEdges[nextToCheck].v1, graphEdges[nextToCheck].v2, 'blue');
+					markers[graphEdges[nextToCheck].v1].setIcon(null);
 					document.getElementById('graphEdge'+nextToCheck).scrollIntoViewIfNeeded();
 				}
 				
