@@ -83,8 +83,16 @@ Additions/deletions/changes/improvements: comments made in the .js, .html, .css 
 Worked on implementing the above 3 points at home.
 Additions/deletions/changes/improvements: comments made in the .js, .html, .css files on Github (Can be accessed by viewing history of each of those files)
 
-**4/18**
-a. Finished implementing the above 3 points at home.
-b. Integrated the Longest/Shortest Edge Search Algorithm into the exisiting project files.
+**4/18 to 5/3**
+1. Finished implementing the above 3 points at home.
+2. Integrated the Longest/Shortest Edge Search Algorithm into the exisiting project files.
+3. finished the Depth-First Search Algorithm
+4. have finished the Breadth-First Search Algorithm
+5. refractor the code
+6. Implemented the pseudocode button so when user click on it than it opens a different window
+7. added DFS, BFS, Algorithm Dijkstra's Description for Pseudocode button
+8. change the color of long/short edage color in js file
+9. have added all the comments inside .html, .css, and .js files
+10. working on Dijkstras Algorithm 
 
 -------------------------------Khaled-------------------------------------
