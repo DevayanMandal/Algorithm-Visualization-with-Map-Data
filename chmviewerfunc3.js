@@ -725,8 +725,6 @@ var longestIndex = 0;
 // callback for when startSearch button is pressed
 //NORTHSOUTH()
 function startSearch() {
-
-
     var statusLine = document.getElementById("status");
     statusLine.innerHTML = "Preparing for Extreme Point Search Visualization";
     // in the future, make sure we have appropriate data in the system
@@ -740,11 +738,18 @@ function startSearch() {
 			    zIndex: google.maps.Marker.MAX_ZINDEX+1,
 			    fillColor: 'white',
 			    strokeColor: 'white'});
+	document.getElementById('waypoint'+i).style.backgroundColor = 'white';
+				
     }
-
+	
+	for (var ii = 0; ii < graphEdges.length; ii++) {
+		document.getElementById('graphEdge'+ii).style.backgroundColor = 'white';
+	 }
+	 
     // we don't need edges here, so we remove those
     for (var i = 0; i < connections.length; i++) {
 	connections[i].setMap(null);
+	var edgePoints = new Array(2);
     }
     connections = new Array();
 
