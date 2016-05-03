@@ -1,4 +1,3 @@
-//
 // CHM Data Viewer-related Javascript functions
 //
 // Load and view data files related to Clinched Highway Mapping (CHM)
@@ -212,7 +211,7 @@ function processContents(fileContents) {
 	pointboxContents = parseWPLContents(fileContents);
     }
     else if (fileName.indexOf(".gra") >= 0) {
-	document.getElementById('filename').innerHTML = fileName + " (Highway Graph File)";
+	document.getElementById('filename').innerHTML = fileName + " (Graph File)";
 	pointboxContents = parseGRAContents(fileContents);
     }
     
@@ -525,13 +524,11 @@ function PTHLine2Waypoint(line) {
 }
 
 
-function GraphEdge(v1, v2, label, flag, distance) {
+function GraphEdge(v1, v2, label) {
 
     this.v1 = parseInt(v1);
     this.v2 = parseInt(v2);
     this.label = label;
-	this.flag = flag;
-	this.distance = distance;
     return this;
 }
 
@@ -607,9 +604,6 @@ function updateMap()
 	    edgePoints[1] = new google.maps.LatLng(waypoints[v2].lat, waypoints[v2].lon);
 	    connections[i] = new google.maps.Polyline({path: edgePoints, strokeColor: "#0000FF", strokeWeight: 10, strokeOpacity: 0.4, map: map});
 	    //map.addOverlay(connections[i]);
-		
-		graphEdges[i].flag = 0;
-		graphEdges[i].distance = -1;
 	}
     }
     else if (genEdges) {
@@ -701,16 +695,15 @@ function speedChanged() {
 
 // support for pause/restart button
 var paused = false;
-function pauseRestart() {
-    var button = document.getElementById("pauseRestart");
+function pauseResume() {
+    var button = document.getElementById("pauseResume");
     paused = !paused;
     if (paused) {
-	button.value = "Restart";
+	button.value = "Resume";
     }
     else {
-		button.value = "Pause";
-		continueSearch();
-		continueSearch2();
+	button.value = "Pause";
+	continueSearch();
     }
 }
 
@@ -765,7 +758,7 @@ function startSearch() {
     nextToCheck = 0;
     statusLine.innerHTML = 'Checking: <span style="color:yellow">0</span>';
     // enable pause button
-    document.getElementById("pauseRestart").disabled = false;
+    document.getElementById("pauseResume").disabled = false;
 	
 	var userOption = document.getElementById("diffAlgorithm").value;
 	if(userOption == 1){
@@ -776,76 +769,270 @@ function startSearch() {
 	else if(userOption == 3){
 		setTimeout(continueSearch3, delay);
 	}
+	else if(userOption == 4){
+		setTimeout(continueSearch4, delay);
+	}
+	else if(userOption == 5){
+		setTimeout(continueSearch5, delay);
+	}
 }
 
 
 
-var stack = [];
-var v;
-function continueSearch3() {
+var priorityQueue = [];
+function continueSearch5() {
+
+priorityQueue.push([1, 'a', 'c']);
+
+DBG.write(priorityQueue);
+
+	var w1Lat = waypoints[graphEdges[nextToCheck].v1].lat;
+	var w1Lon = waypoints[graphEdges[nextToCheck].v1].lon;
+	var w2Lat = waypoints[graphEdges[nextToCheck].v2].lat;
+	var w2Lon = waypoints[graphEdges[nextToCheck].v2].lon;
+	var mileage = Mileage(w1Lat, w1Lon, w2Lat, w2Lon);
 	
-	stack.push(graphEdges[nextToCheck].v1);
-	while(stack === undefined || stack.length == 0){
-		v = stack.pop(graphEdges[nextToCheck].v1);
-		if(){
-			visit(v);
+	
+	
+	nextToCheck++;
+	
+	//DBG.write("nexttocheck: " + nextToCheck + " stack: " + stack);
+	if(nextToCheck < graphEdges.length) {
+			if (!paused) {
+				setTimeout(continueSearch5, delay);
+			}
+	}
+}
+
+
+
+var queue = [];
+var visit1 = [];
+var result1 = [];
+var flag1 = true;
+var defeated1 = new Array();
+function continueSearch4() {
+	// step 1 -  Get the first waypoint. Push it to stack and mark it as visit.
+	if(flag1 == true){
+		for(var i = 0; i  < waypoints.length; i++){
+			visit1[i] = false;
 		}
-		for(){
-			if(w not yet visited){
-				stack.push(w);
+		queue.push(nextToCheck);
+		visit1[nextToCheck] = true;
+		result1.push(nextToCheck);
+		flag1 = false;
+	}
+
+
+	//step 3. check to see if either end point place are current one
+	if(queue[0] == graphEdges[nextToCheck].v1 || queue[0] == graphEdges[nextToCheck].v2){
+		if(queue[0] != graphEdges[nextToCheck].v1){
+			//step 4 - if it is than we have to check to see if visiit or not
+			if(visit1[graphEdges[nextToCheck].v1] == false){				
+				//step 6 - if not than push it on stack
+				queue.push(graphEdges[nextToCheck].v1);
+				result1.push(graphEdges[nextToCheck].v1);
+				visit1[graphEdges[nextToCheck].v1] = true;
+				markers[graphEdges[nextToCheck].v1].setIcon({path: google.maps.SymbolPath.CIRCLE,
+						  scale: 4,
+						  zIndex: google.maps.Marker.MAX_ZINDEX+2,
+						  fillColor: 'yellow',
+						  strokeColor: 'yellow'});
+				document.getElementById('waypoint'+nextToCheck).style.backgroundColor = 'yellow';
+				document.getElementById('waypoint'+nextToCheck).scrollIntoViewIfNeeded();
+				defeated.push(queue[0]);
+				nextToCheck = -1;
+			}
+		} else{
+			//step 4 - if it is than we have to check to see if visiit or not
+			if(visit1[graphEdges[nextToCheck].v2] == false){
+				//step 6 - if not than push it on stack
+				queue.push(graphEdges[nextToCheck].v2);
+				result1.push(graphEdges[nextToCheck].v2);
+				visit1[graphEdges[nextToCheck].v2] = true;	
+
+					markers[graphEdges[nextToCheck].v2].setIcon({path: google.maps.SymbolPath.CIRCLE,
+						  scale: 4,
+						  zIndex: google.maps.Marker.MAX_ZINDEX+2,
+						  fillColor: 'yellow',
+						  strokeColor: 'yellow'});
+				document.getElementById('waypoint'+nextToCheck).style.backgroundColor = 'yellow';
+				document.getElementById('waypoint'+nextToCheck).scrollIntoViewIfNeeded();
+				defeated.push(queue[0]);	
+				
+				nextToCheck = -1;
 			}
 		}
 	}
-DBG.write(stack);
 
+	var statusLine = document.getElementById("status");
+	var line = 'Checking : <span style="color:red"> ' + queue + "</span>";
+	statusLine.innerHTML = line;
+	
+	//step 2 - loop though graphedge array
+	nextToCheck++;
+	
+	
+	//DBG.write("nexttocheck: " + nextToCheck + " stack: " + stack);
+	if(nextToCheck < graphEdges.length) {
+			if (!paused) {
+				setTimeout(continueSearch4, delay);
+			}
+	}else {
+			//step 5 - if not than pop it from stack 
+			queue.shift();
+			
+			//step 7 - continue until the stack is empty
+			var loopAgain = false;
+			for(var a = 0; a < queue.length; a++){
+				if(queue[a] != null){
+					loopAgain = true;
+					break
+				}
+			}
+			if(loopAgain) {				
+				nextToCheck = 0;
+				setTimeout(continueSearch4, delay);
+			}
+			statusLine.innerHTML = "Done! Results: " + result1;
+	}
+}
 
+/*
+step 1. Get the first waypoint. Push it to stack and mark it as visit.
+step 2. loop though graphedge array
+step 3. check to see if either end point place are current one
+step 4. if it is than we have to check to see if visiit or not
+step 5. if not than pop it from stack  
+step 6. if not than push it on stack
+step 7. continue until the stack is empty
+*/
 
-// template - use later when algo is finish
-	if(nextToCheck == 0){
-	}else{
+var stack = [];
+var visit = [];
+var result = [];
+var flag = true;
+var defeated = new Array();
+function continueSearch3() {
+
+	// step 1 -  Get the first waypoint. Push it to stack and mark it as visit.
+	if(flag == true){
+		for(var i = 0; i  < waypoints.length; i++){
+			visit[i] = false;
+		}
+		stack.push(nextToCheck);
+		result.push(nextToCheck);
+		visit[nextToCheck] = true;
+		flag = false;
 	}
 
+
+	//step 3. check to see if either end point place are current one
+	if(stack[stack.length - 1] == graphEdges[nextToCheck].v1 || stack[stack.length - 1] == graphEdges[nextToCheck].v2){
+		if(stack[stack.length - 1] != graphEdges[nextToCheck].v1){
+			//step 4 - if it is than we have to check to see if visiit or not
+			if(visit[graphEdges[nextToCheck].v1] == false){
+				//step 6 - if not than push it on stack
+				stack.push(graphEdges[nextToCheck].v1);
+				result.push(graphEdges[nextToCheck].v1);
+				visit[graphEdges[nextToCheck].v1] = true;
+				
+					markers[graphEdges[nextToCheck].v1].setIcon({path: google.maps.SymbolPath.CIRCLE,
+						  scale: 4,
+						  zIndex: google.maps.Marker.MAX_ZINDEX+2,
+						  fillColor: 'yellow',
+						  strokeColor: 'yellow'});
+				document.getElementById('waypoint'+nextToCheck).style.backgroundColor = 'yellow';
+				document.getElementById('waypoint'+nextToCheck).scrollIntoViewIfNeeded();
+				defeated.push(stack[stack.length - 1]);
+				
+				nextToCheck = -1;
+			}
+		} else{
+			//step 4 - if it is than we have to check to see if visiit or not
+			if(visit[graphEdges[nextToCheck].v2] == false){
+				//step 6 - if not than push it on stack
+				stack.push(graphEdges[nextToCheck].v2);
+				result.push(graphEdges[nextToCheck].v2);
+				visit[graphEdges[nextToCheck].v2] = true;
+				
+					markers[graphEdges[nextToCheck].v2].setIcon({path: google.maps.SymbolPath.CIRCLE,
+						  scale: 4,
+						  zIndex: google.maps.Marker.MAX_ZINDEX+2,
+						  fillColor: 'yellow',
+						  strokeColor: 'yellow'});
+				document.getElementById('waypoint'+nextToCheck).style.backgroundColor = 'yellow';
+				document.getElementById('waypoint'+nextToCheck).scrollIntoViewIfNeeded();
+				defeated.push(stack[stack.length - 1]);	
+				
+				nextToCheck = -1;
+				
+			}
+		}
+	}
+
+	var statusLine = document.getElementById("status");
+	var line = 'Checking : <span style="color:red"> ' + stack + "</span>";
+	statusLine.innerHTML = line;
+	
+	//step 2 - loop though graphedge array
 	nextToCheck++;
+	
+	//DBG.write("nexttocheck: " + nextToCheck + " stack: " + stack);
 	if(nextToCheck < graphEdges.length) {
 			if (!paused) {
 				setTimeout(continueSearch3, delay);
 			}
-		}
-		else {
-				//results
-			 }
+	}else {
+			//step 5 - if not than pop it from stack 
+			stack.pop();
+			
+	
+			
+			//step 7 - continue until the stack is empty
+			var loopAgain = false;
+			for(var a = 0; a < stack.length; a++){
+				if(stack[a] != null){
+					loopAgain = true;
+					break
+				}
+			}
+			if(loopAgain) {				
+				nextToCheck = 0;
+				setTimeout(continueSearch3, delay);
+			}
+			statusLine.innerHTML = "Done! Results: " + result;
+	}		 
 }
 
 
 //markers, polyline, connections table
-function myBackgroundColorAlgo3( fi,  fv1,  fv2,  fcolor1, fcolor2) {
+function myBackgroundColorAlgo3( fi,  fv1, fcolor1, fcolor2) {
 	markers[fv1].setIcon({path: google.maps.SymbolPath.CIRCLE,
 						  scale: 4,
 						  zIndex: google.maps.Marker.MAX_ZINDEX+2,
 						  fillColor: fcolor1,
 						  strokeColor: fcolor1});
-			var edgePoints = new Array(2);
-			edgePoints[0] = new google.maps.LatLng(waypoints[fv1].lat, waypoints[fv1].lon);
-			edgePoints[1] = new google.maps.LatLng(waypoints[fv2].lat, waypoints[fv2].lon);
-			connections[fi] = new google.maps.Polyline({path: edgePoints, strokeColor: fcolor2, strokeWeight: 10, strokeOpacity: 0.4, map: map});
-			document.getElementById('graphEdge'+fi).style.backgroundColor = fcolor2;
+	document.getElementById('graphEdge'+fi).style.backgroundColor = fcolor2;
 }
 
-
+// Longest/Shortest Edge Search Algorithm
 function continueSearch2() {
+	//get lat and lon points 
 	var w1Lat = waypoints[graphEdges[nextToCheck].v1].lat;
 	var w1Lon = waypoints[graphEdges[nextToCheck].v1].lon;
 	var w2Lat = waypoints[graphEdges[nextToCheck].v2].lat;
 	var w2Lon = waypoints[graphEdges[nextToCheck].v2].lon;
-			
+	
+	//base case 
 	if(nextToCheck == 0){
+			//get distance between two points
 			var mileage = Mileage(w1Lat, w1Lon, w2Lat, w2Lon);
-				
 			shortestEdage = mileage;
 			shortestIndex = nextToCheck;
 			longestEdage = mileage;
 			longestIndex = nextToCheck;
-			
+			//UI part
 			myBackgroundColorAlgo2(nextToCheck, graphEdges[nextToCheck].v1, graphEdges[nextToCheck].v2, 'red');
 	}else{
 			var foundNewLeader = false;
@@ -864,14 +1051,13 @@ function continueSearch2() {
 				longestEdage = mileage;
 				longestIndex = nextToCheck;
 			}
-
 			
 			if (foundNewLeader) {
 				if(shortestIndex == nextToCheck){
-					myBackgroundColorAlgo2(nextToCheck, graphEdges[nextToCheck].v1, graphEdges[nextToCheck].v2, 'red');
+					myBackgroundColorAlgo2(nextToCheck, graphEdges[nextToCheck].v1, graphEdges[nextToCheck].v2, 'brown');
 					document.getElementById('graphEdge'+nextToCheck).scrollIntoViewIfNeeded();
 				}else if(longestIndex == nextToCheck){
-					myBackgroundColorAlgo2(nextToCheck, graphEdges[nextToCheck].v1, graphEdges[nextToCheck].v2, 'green');
+					myBackgroundColorAlgo2(nextToCheck, graphEdges[nextToCheck].v1, graphEdges[nextToCheck].v2, 'blue');
 					document.getElementById('graphEdge'+nextToCheck).scrollIntoViewIfNeeded();
 				}
 				
@@ -895,7 +1081,7 @@ function continueSearch2() {
 	}// end of else 
 	
 	nextToCheck++;
-
+	//result 
 	var statusLine = document.getElementById("status");
 	var line = 'Checking : <span style="color:yellow"> ' + nextToCheck + "</span> ShortestEdge: ";
 	line = line + ' <span style="color:red"> ' + graphEdges[shortestIndex].v1 + ' </span> LongestEdge: ';
@@ -912,7 +1098,7 @@ function continueSearch2() {
 			}
 		}
 		else {
-			statusLine.innerHTML = "Done! Results: Shorest Edage: " + graphEdges[shortestIndex].v1 + "LongestEdage: " + graphEdges[longestIndex].v1
+			statusLine.innerHTML = "Done! Results: Shortest Edge: #" + graphEdges[shortestIndex].v1 + " Longest Edge: #" + graphEdges[longestIndex].v1 + "."
 		}
 }
 
@@ -1078,11 +1264,11 @@ function continueSearch() {
 	}
     }
     else {
-	statusLine.innerHTML = "Done! Results: N: " + northIndex + " S:" + southIndex + " E: " + eastIndex + " W:" + westIndex;
+	statusLine.innerHTML = "Done! Results: North: #" + northIndex + "  ,South: #" + southIndex + "  ,East: #" + eastIndex + "  ,West: #" + westIndex;
     }
 }
 
-// JS debug window by Mike Maddox from
+//JS debug window by Mike Maddox from
 // http://javascript-today.blogspot.com/2008/07/how-about-quick-debug-output-window.html
 var DBG = {
     write : function(txt){
