@@ -50,10 +50,13 @@ Khaled and Arpit haven been requested via Whatsapp to only copy-paste these docu
 
 -------------------------------Ikhlas-------------------------------------
 
-**3/1**
-I explained to the team members how to import the algorithm visualization files (.gra, .nmp etc) and demo Prof Teresco's existing 'Highway Data Examiner' website
+**3/1 to 3/8**
+1. I explained to the team members how to import the algorithm visualization files (.gra, .nmp etc) and demo Prof Teresco's existing 'Highway Data Examiner' website
 
-**3/8**
+2. understand the code and algo(html, css, js) and explained to the team members as to how it work.
+
+
+**3/8 to 4/13 **
 I worked on the User Interface components of the website. (Even though User Interface is Khaled and Arpit's responsibility)
 a. Changed title from: 'HDX (Draft Algorithm Viz): Select a file to display' to 'Clinched Highway Mapping'.
 
@@ -62,6 +65,12 @@ b. Added an embossed middle toolbar to bring the user's attention to the Algorit
 c. Linked a .css file to the exisiting .html file to bring about basic cascading style sheets functionality and improve the user interface experience.
 
 d. Improved the user interface experience further by adding borders around the #map (using div functionality). Also, updated the font to be universal for all front-end text.
+
+e. created the website banner / header
+
+f. other css changes: added shadow on div,  change the color and added border
+
+e. fix the dimension of map and table
 
 **4/13**
 1. Discussed with the client (via email and Arpit, Devayan and Khaled met the client during office hours) as to how the Longest/Shortest Edge Search Algorithm will be implemented:
@@ -73,6 +82,7 @@ c. Understood what segments of the .js and .html file might need require changes
 
 **4/14**
 a. Worked on implementing the above 3 points at home.
+
 b. Discussed further with the client (via email) about implementation of the algorithm.
 
 **4/15**
