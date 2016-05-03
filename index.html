@@ -114,17 +114,49 @@
 
 <!-- new window -->
 <script>
-    function pseducodeNewWindow(){
-        var selectedAlgorithm = $('#diffAlgorithm').val();
-        
-        if (selectedAlgorithm == 1) {
-            window.open('extremeWaypointPsuedocode.html');   
-        } else if (selectedAlgorithm == 2) {
-            window.open('edgeBasedPsuedocode.html');
-        } else if (selectedAlgorithm == 3) {
-            window.open('futurePsuedocode.html');
-        }        
-    }
+    function pseudocodeNewWindow(){
+		var userOption = document.getElementById("diffAlgorithm").value;
+		if(userOption == 1){
+			var myWindow = window.open("", "new window", "right=1000, top=0, width=500, height=500");
+			myWindow.document.write("<h1>Algorithm Description:</h1>");
+			myWindow.document.write("<p>It is often useful to find an extreme point of a 2D polygon. For example, the vertices with maximal or minimal x-coordinates or y-coordinates define a polygon's bounding box. More generally, one might want to find an extreme point in an arbitrary direction. For any set of n points, such as an n-vertex polygon, this is easily done in O(n) time by testing each point against the previously found extreme. But, for the special case of a convex polygon, an adaptation of binary searching can find the extreme point in only O(log-n) time. We describe this algorithm in detail for an arbitrary query direction vector u. Also, we show how this algorithm can be applied to compute the distance from a convex polygon to a line.</p>");
+			myWindow.document.write("<br/>");
+			myWindow.document.write("<p>Note that the convex hull of a point set or polygon is precisely the collection of extreme points in all possible directions. Thus, if several extreme point queries are expected for an arbitrary polygon, it may make sense to first compute its convex hull, and then do queries on this hull in O(log-h) time, where h.le.n is the number of hull vertices. For 2D simple polygons, the convex hull can be found efficiently in O(n) time.</p>");
+			myWindow.document.write("<br/>");
+			myWindow.document.write("<h1>Algorithm Pseudo-code:</h1>");
+			myWindow.document.write("<p>The straightforward brute-force way to find an extreme point is to test all points incrementally, and remember the current extreme for the points tested so far. Each new point considered only has to be compared to the current extreme one. This works for any set of n points, and is clearly an O(n) algorithm. The algorithm for finding the extreme maximum and minimum relative to u is simple, as shown in the following pseudo-code.</p>");
+			myWindow.document.write("<br/>");
+		    myWindow.document.write("<p>Input: W = {V0,V1,...,Vn-1}  is a set of n points</p>");
+			myWindow.document.write("<p>u = a direction vector</p>");
+			myWindow.document.write("<p>Put: max = min = 0</p>");
+			myWindow.document.write("<p>for each point Vi in {V1,...,Vn-1}  (i=1,n-1)</p>");
+			myWindow.document.write("<p>{</p>");
+			myWindow.document.write("<p>if (u · (Vi - Vmax) > 0) {  // Viis above the prior max</p>");
+			myWindow.document.write("<p>max = i;                // new max index = i</p>");
+			myWindow.document.write("<p>continue;               // a new max can't be a new min</p>");
+			myWindow.document.write("<p>}</p>");
+			myWindow.document.write("<p>if (u · (Vi - Vmin) < 0)    // Vi is below the prior min</p>");
+			myWindow.document.write("<p>min = i;                // new min index = i</p>");
+			myWindow.document.write("<p>}</p>");
+			myWindow.document.write("<p>return max = index of max vertex</p>");
+			myWindow.document.write("<br/>");
+			myWindow.document.write("<p>For an arbitrary set of points without structure, this is the best one can do. For a set of n points, this algorithm will perform (n-1) dot product comparisons to compute the maximum of a set.</p>");
+		} else if(userOption == 2){
+			var myWindow2 = window.open("", "new window", "right=1000, top=0, width=500, height=500");
+			myWindow2.document.write("<p></p>");
+		}else if(userOption == 3){
+			var myWindow3 = window.open("", "Depth-First Search Algorithm", "right=1000, top=0, width=500, height=500");
+			myWindow3.document.write("<img src='setupalgo.png' width='100%' />");
+			myWindow3.document.write("<img src='dfs.png' width='100%' /></p>");
+		}else if(userOption == 4){
+			var myWindow3 = window.open("", "Breadth-First Search Algorithm", "right=1000, top=0, width=500, height=500");
+			myWindow3.document.write("<img src='setupalgo.png' width='100%' />");
+			myWindow3.document.write("<img src='bfs.png' width='100%' /></p>");
+		}else if(userOption == 5){
+			var myWindow3 = window.open("", "Breadth-First Search Algorithm", "right=1000, top=0, width=500, height=500");
+			myWindow3.document.write("<img src='dij.png' width='100%' /></p>");
+		}
+    } 
 </script>
 
   <script>
@@ -144,47 +176,51 @@
 	
 
 	<div id="controlbox">
-        <div id="resultWrap">
-            <p id="status">&nbsp;</p> 
-        </div>
-        <div id="allControl">
-            
-            <span id="filename" style="display:none;">Select a file to display</span>
+		<span id="filename">Select a file to display</span>
 
-            <!-- Choose a file -->
-            <input id="file" type="file" onchange="startRead()">
-            <!-- <input id="showHidden" type="checkbox" name="Show Hidden Markers" onclick="showHiddenClicked()" checked="false">&nbsp;Show Hidden Markers -->
-            
-            <!-- start search button -->
-            <input id="startSearch" type="button" value="Start" disabled="true" onclick="startSearch() <!--pseducodeNewWindow()-->">
-            
-            <!-- change speed selector 
-            
-            -->
-            
-            <div style="width: 150px; display: inline-block;">
-                <input id="range_16" class="irs-hidden-input" style="display:none;" onchange="onSpeedChanged()" readonly="">
-            </div>
-                
-            <!-- pause button -->
-            <input id="pauseResume" type="button" value="Pause" disabled="true" onclick="pauseResume()">
-            
-            <!-- Diff algorithm selector -->
-            <select id="diffAlgorithm" onchange="onAlgorithmChange()" <!--onclick="ReloadMainPage()"-->>
-                <option value="1" selected>Extreme Waypoint</option>
-                <option value="2">Edge Based</option>
-                <option value="3">Future Algorithm</option>
-            </select>
-            
-            <!-- new window -->
-            <button id="Pseudo" onclick="pseducodeNewWindow()">
-            <div class="auto-style7">
-                Pseudo Code</div>
-            </button>
+		<!-- Choose a file -->
+		<input id="file" type="file" onchange="startRead()">
+		<!-- <input id="showHidden" type="checkbox" name="Show Hidden Markers" onclick="showHiddenClicked()" checked="false">&nbsp;Show Hidden Markers -->
+		
+		<!-- start search button -->
+		<input id="startSearch" type="button" value="Start Algorithm Visualization" disabled="true" onclick="startSearch() <!--pseudocodeNewWindow()-->">
+		
+		<!-- change speed selector 
+		<select id="speedChanger" onchange="speedChanged()">
+		  <option value="5">Extremely fast</option>
+		  <option value="20">Very fast</option>
+		  <option value="50" selected>Fast</option>
+		  <option value="100">Medium speed</option>
+		  <option value="250">Pretty slow</option>
+		  <option value="500">Slow</option>
+		  <option value="1000">Extremely Slow</option>
+		</select>
+        -->
+        
+        <div style="width: 150px; display: inline-block;">
+            <input id="range_16" class="irs-hidden-input" style="display:none;" onchange="onSpeedChanged()" readonly="">
         </div>
+			
+		<!-- pause button -->
+		<input id="pauseResume" type="button" value="Pause the Algorithm" disabled="true" onclick="pauseResume()">
+		
+		<!-- Diff algorithm selector -->
+		<select id="diffAlgorithm" onchange="" <!--onclick="ReloadMainPage()"-->>
+			<option value="1" selected>Extreme Waypoint Search Algorithm</option>
+			<option value="2">Longest/Shortest Edge Search Algorithm</option>
+			<option value="3">Depth-First Search Algorithm</option>
+			<option value="4">Breadth-First Search Algorithm</option>
+			<option value="5">Breadth-First Search Algorithm</option>
+		</select>
+		
+        <!-- new window -->
+        <button onclick="pseudocodeNewWindow()">
+		<div class="auto-style7">
+			Pseudo Code</div>
+		</button>
         
 		<!-- result when you start algorithm -->
-		<!--<p id="status" style="height: 40px"></p>-->
+		<p id="status" style="height: 40px"></p>
 	</div>
 	
 	<div id="pointbox" style="left: 11px; right: 1111px; top: 186px; bottom: 24px; width: 441px">
