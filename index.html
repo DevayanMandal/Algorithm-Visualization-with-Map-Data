@@ -170,71 +170,66 @@
 <body onload="loadmap();">
 
 	<!-- title -->
-	<div id="headerbox">
+    <div id="header-wrap">
+        <div id="headerbox">
 		<div id="title">Algorithm Visualization with Map Data<br></div>
 	</div>
 	
 
 	<div id="controlbox">
-		<span id="filename">Select a file to display</span>
-
-		<!-- Choose a file -->
-		<input id="file" type="file" onchange="startRead()">
-		<!-- <input id="showHidden" type="checkbox" name="Show Hidden Markers" onclick="showHiddenClicked()" checked="false">&nbsp;Show Hidden Markers -->
-		
-		<!-- start search button -->
-		<input id="startSearch" type="button" value="Start Algorithm Visualization" disabled="true" onclick="startSearch() <!--pseudocodeNewWindow()-->">
-		
-		<!-- change speed selector 
-		<select id="speedChanger" onchange="speedChanged()">
-		  <option value="5">Extremely fast</option>
-		  <option value="20">Very fast</option>
-		  <option value="50" selected>Fast</option>
-		  <option value="100">Medium speed</option>
-		  <option value="250">Pretty slow</option>
-		  <option value="500">Slow</option>
-		  <option value="1000">Extremely Slow</option>
-		</select>
-        -->
-        
-        <div style="width: 150px; display: inline-block;">
-            <input id="range_16" class="irs-hidden-input" style="display:none;" onchange="onSpeedChanged()" readonly="">
+		<span id="filename" style="display:none">Select a file to display</span>
+        <div id="resultWrap">
+             <p id="status">&nbsp;</p> 
+         </div>
+         <div id="allControl">
+            <!-- Choose a file -->
+            <input id="file" type="file" onchange="startRead()">
+            
+            <div style="width: 150px; display: inline-block;">
+                <input id="range_16" class="irs-hidden-input" style="display:none;" onchange="onSpeedChanged()" readonly="">
+            </div>
+            
+            <!-- start search button -->
+            <input id="startSearch" type="button" value="Start" disabled="true" onclick="startSearch() <!--pseudocodeNewWindow()-->">
+                
+            <!-- pause button -->
+            <input id="pauseResume" type="button" value="Pause" disabled="true" onclick="pauseResume()">
+            
+            <!-- Diff algorithm selector -->
+            <select id="diffAlgorithm" onchange="onAlgorithmChange()" <!--onclick="ReloadMainPage()"-->>
+                <option value="1" selected>Extreme Waypoint Search Algorithm</option>
+                <option value="2">Longest/Shortest Edge Search Algorithm</option>
+                <option value="3">Depth-First Search Algorithm</option>
+                <option value="4">Breadth-First Search Algorithm</option>
+                <option value="5">Dijkstras Algorithm</option>
+            </select>
+            
+            <!-- new window -->
+            <button id="Pseudo" onclick="pseudocodeNewWindow()">
+            <div class="auto-style7">
+                Pseudo Code</div>
+            </button>
         </div>
-			
-		<!-- pause button -->
-		<input id="pauseResume" type="button" value="Pause the Algorithm" disabled="true" onclick="pauseResume()">
-		
-		<!-- Diff algorithm selector -->
-		<select id="diffAlgorithm" onchange="" <!--onclick="ReloadMainPage()"-->>
-			<option value="1" selected>Extreme Waypoint Search Algorithm</option>
-			<option value="2">Longest/Shortest Edge Search Algorithm</option>
-			<option value="3">Depth-First Search Algorithm</option>
-			<option value="4">Breadth-First Search Algorithm</option>
-			<option value="5">Dijkstras Algorithm</option>
-		</select>
-		
-        <!-- new window -->
-        <button onclick="pseudocodeNewWindow()">
-		<div class="auto-style7">
-			Pseudo Code</div>
-		</button>
-        
-		<!-- result when you start algorithm -->
-		<p id="status" style="height: 40px"></p>
 	</div>
+    </div>
+    
+    
 	
-	<div id="pointbox" style="left: 11px; right: 1111px; top: 186px; bottom: 24px; width: 441px">
+	
+    <div id="content-wrap">
+        <div id="pointbox">
 		Please upload an algorithm visualization file.
 	</div>
 	
-	<div id="map" style="left: 457px; right: 199px; top: 168px; bottom: 10px; width: 899px">
+	<div id="map">
 	</div>
 	
-	<div id="legendbox" style="right: 11px; right: 27px; top: 168px; bottom: 238px; width: 143px; left: 1383px;" class="auto-style2">
+    <div id="right-column">
+        <div id="legendbox" class="auto-style2">
 		<strong><span class="auto-style1">Map
 		Legend</span></strong>:
  <br><strong>Extreme Waypoint Search:<br></strong>North, South, East, West extreme most co-ordinates:
-		<strong><span class="auto-style3">R</span><span class="auto-style6">ed 
+		<strong><span class="auto-style6">Red 
 		waypoints</span></strong><br><br><strong>Longest/Shortest Edge Search:<br>
 		</strong>Longest edge: <span class="auto-style4"><strong>dark blue</strong></span><br>Shortest edge: 
 		<span class="auto-style5"><strong>dark brown</strong></span><br><br>
@@ -242,12 +237,16 @@
   Shortest route: <span class="auto-style4"><strong>dark blue </strong></span>
 	</div>
 	
-	<div id="gethelp" style="left: 1385px; right: 28px; top: 546px; bottom: 60px; width: 140px; height: 108px;" class="auto-style2">
+	<div id="gethelp" style="" class="auto-style2">
 	Algorithm Visualization Steps 
 		and Map Data Files:
-	<a href="gethelppopup.html" target="_blank">
+	<a href="gethelppopup.html" target="_blank"><br>
      <span class="auto-style8">Get More Information</span></a><a href="gethelppopup.html" target="_blank" class="auto-style5">
      </a>
    	</div>
+    </div>
+    </div>
+	
+	
 	</body>
 </html>
